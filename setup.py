@@ -8,10 +8,10 @@ setup(
                 'instapaper = indexer:Indexer',
                 ],
             },
-        install_requires={
+        install_requires=[
             'octosearch',
             'instapaper',
             # dep required by instapaper lib
             'oauth2>=1.9.0.post1',
-            }
+            ]
         )
