@@ -9,7 +9,7 @@ class Indexer(object):
         i = Instapaper(conf['instapaper_key'], conf['instapaper_secret'])
         i.login(conf['username'], conf['password'])
 
-        for bookmark in i.bookmarks():
+        for bookmark in i.bookmarks(limit=99999):
             yield InstapaperBookmark(bookmark)
 
 
@@ -27,10 +27,11 @@ class InstapaperBookmark(File):
     def open_text(self):
         return StringIO(self._bookmark.text)
 
-    def _metadata(bookmark):
+    def _metadata(self, bookmark):
         return {
             'url': bookmark.url,
             'extension': 'html',
             'mimetype': 'text/html',
-            'size': 0
+            'size': 0,
+            'modified': bookmark.time
         }
