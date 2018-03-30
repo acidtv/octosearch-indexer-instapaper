@@ -1,6 +1,6 @@
 from octosearch.indexer import File
 from instapaper import Instapaper
-from io import StringIO
+import io
 
 
 class Indexer(object):
@@ -17,22 +17,17 @@ class InstapaperBookmark(File):
 
     _bookmark = None
 
-    def __init__(self, bookmark, encoding='utf-8'):
+    def __init__(self, bookmark):
+        super().__init__()
         self._bookmark = bookmark
-        super(InstapaperBookmark, self).__init__(self._metadata(bookmark), encoding)
+        self._set_properties(bookmark)
 
-    def open_binary(self):
-        return self.open_text()
+    def open(self):
+        return io.BytesIO(self._bookmark.text)
 
-    def open_text(self):
-        return StringIO(self._bookmark.text)
-
-    def _metadata(self, bookmark):
-        return {
-            'title': bookmark.title,
-            'url': bookmark.url,
-            'extension': 'html',
-            'mimetype': 'text/html',
-            'size': 0,
-            'modified': bookmark.time
-        }
+    def _set_properties(self, bookmark):
+        self.title = bookmark.title
+        self.url = bookmark.url
+        self.mimetype = 'text/html'
+        self.size = 0
+        self.modified = bookmark.time
