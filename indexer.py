@@ -29,6 +29,7 @@ class InstapaperBookmark(File):
 
     def _metadata(self, bookmark):
         return {
+            'title': bookmark.title,
             'url': bookmark.url,
             'extension': 'html',
             'mimetype': 'text/html',
