@@ -23,7 +23,7 @@ class InstapaperBookmark(File):
         self._set_properties(bookmark)
 
     def open(self):
-        return io.BytesIO(self._bookmark.text)
+        return io.BytesIO(self._bookmark.text.encode('utf-8'))
 
     def _set_properties(self, bookmark):
         self.title = bookmark.title

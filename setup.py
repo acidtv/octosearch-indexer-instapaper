@@ -10,8 +10,12 @@ setup(
             },
         install_requires=[
             'octosearch',
-            'instapaper',
+            'instapaper==0.4',
             # dep required by instapaper lib
             'oauth2>=1.9.0.post1',
+            ],
+        dependency_links=[
+            # this fork from rsgalloway/instapaper has a working python 3 branch
+            'git+https://github.com/yusongmen/instapaper.git@issue-6#egg=instapaper-0.4',
             ]
         )
